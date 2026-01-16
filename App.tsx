@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { UserRole, IncidentReport, IncidentStatus, IncidentCategory } from './types';
 import StudentReportForm from './components/StudentReportForm';
 import AdminDashboard from './components/AdminDashboard';
@@ -9,6 +9,49 @@ import { auth, db } from './services/firebase';
 import { onAuthStateChanged, signOut, signInAnonymously } from 'firebase/auth';
 import type { User } from 'firebase/auth';
 import { collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, serverTimestamp } from 'firebase/firestore';
+
+const HeartAnimation: React.FC = () => {
+  const hearts = useMemo(() => {
+    const colors = [
+      'rgba(244, 63, 94, 0.7)',  // rose - sáng hơn
+      'rgba(129, 140, 248, 0.7)', // indigo - sáng hơn
+      'rgba(34, 197, 94, 0.7)',   // green - sáng hơn
+      'rgba(245, 158, 11, 0.7)',  // amber - sáng hơn
+      'rgba(168, 85, 247, 0.7)',  // purple - sáng hơn
+    ];
+    return Array.from({ length: 15 }).map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      size: `${Math.random() * 20 + 15}px`, // Kích thước tối thiểu lớn hơn một chút
+      duration: `${Math.random() * 15 + 20}s`,
+      delay: `${Math.random() * 20}s`,
+      color: colors[i % colors.length]
+    }));
+  }, []);
+
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      {hearts.map(heart => (
+        <svg
+          key={heart.id}
+          className="floating-heart"
+          style={{
+            left: heart.left,
+            width: heart.size,
+            height: heart.size,
+            animationDuration: heart.duration,
+            animationDelay: heart.delay,
+            fill: heart.color,
+            filter: 'drop-shadow(0 0 5px white)' // Thêm hào quang trắng để sáng rõ hơn
+          }}
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+      ))}
+    </div>
+  );
+};
 
 const App: React.FC = () => {
   const [role, setRole] = useState<UserRole>(UserRole.STUDENT);
@@ -103,7 +146,9 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#F8FAF8] flex flex-col w-full">
+    <div className="min-h-screen bg-[#F8FAF8] flex flex-col w-full relative">
+      <HeartAnimation />
+
       {/* Navbar */}
       <nav className="glass-card sticky top-0 z-[60] border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
@@ -138,17 +183,17 @@ const App: React.FC = () => {
         </div>
       </nav>
 
-      <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
+      <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16 z-10">
         {role === UserRole.STUDENT ? (
           <div className="animate-in fade-in slide-in-from-bottom-6 duration-1000">
             <div className="text-center mb-12 sm:mb-20">
               <h1 className="text-4xl sm:text-7xl font-black text-slate-950 mb-6 tracking-tight leading-none px-4 font-serif">
-                <span className="gradient-text italic">PTDTBT THCS Thu Cúc</span>
+                <span className="gradient-text italic">PTDTBT THCS THU CÚC</span>
               </h1>
               <p className="text-slate-500 text-sm sm:text-xl font-medium max-w-2xl mx-auto px-4 leading-relaxed">
                 Nơi mỗi học sinh đều có tiếng nói. Hãy cùng chúng tôi xây dựng một môi trường học tập hạnh phúc và không bạo lực.
               </p>
-              <div className="w-24 h-1.5 primary-gradient mx-auto mt-10 rounded-full opacity-30"></div>
+              <div className="w-24 h-1.5 bg-indigo-200 mx-auto mt-10 rounded-full opacity-30"></div>
             </div>
             <StudentReportForm onSubmit={handleNewReport} />
           </div>
@@ -172,7 +217,7 @@ const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="py-10 sm:py-16 border-t border-slate-200 bg-white mt-12">
+      <footer className="py-10 sm:py-16 border-t border-slate-200 bg-white mt-12 z-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
             <div className="text-center sm:text-left">
@@ -185,7 +230,7 @@ const App: React.FC = () => {
                 <span className="w-2 h-2 bg-indigo-600 rounded-full animate-pulse"></span>
                 <span className="text-xs font-black text-indigo-700 tracking-wider">HOTLINE: 0868.640.898</span>
               </a>
-              <p className="text-xs text-slate-400 font-bold italic">© 2024 Ban Giám Hiệu Thu Cuc School</p>
+              <p className="text-xs text-slate-400 font-bold italic">© 2024 Ban Giám Hiệu THU CÚC School</p>
             </div>
           </div>
         </div>
