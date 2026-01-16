@@ -47,7 +47,7 @@ const TeacherLogin: React.FC = () => {
           </svg>
         </div>
         <h2 className="text-3xl font-black text-slate-900 tracking-tight">Cổng Giáo viên</h2>
-        <p className="text-indigo-600 font-bold mt-2 uppercase">TRƯỜNG PTDTBT THCS THU CÚC</p>
+        <p className="text-indigo-600 font-bold mt-2 uppercase">PTDTBT THCS THU CÚC</p>
       </div>
 
       <form onSubmit={handleLogin} className="space-y-6">
