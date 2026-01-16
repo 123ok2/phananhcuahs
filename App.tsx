@@ -217,20 +217,18 @@ const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="py-6 sm:py-8 border-t border-slate-200 bg-white mt-8 z-10">
+      <footer className="py-4 sm:py-6 border-t border-slate-200 bg-white mt-8 z-10">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-4">
-            <div className="text-center sm:text-left space-y-1">
-              <p className="text-slate-950 font-black text-base sm:text-lg tracking-tight uppercase font-serif">PTDTBT THCS THU CÚC</p>
-              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-label">Hệ thống SchoolSafe v2.0</p>
-            </div>
-            
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4">
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
-              <a href="tel:0868640898" className="flex items-center gap-3 bg-indigo-50 px-5 py-2 rounded-xl border border-indigo-100 hover:bg-indigo-100 transition-all group">
+              <a href="tel:0868640898" className="flex items-center gap-2.5 bg-indigo-50 px-4 py-2 rounded-xl border border-indigo-100 hover:bg-indigo-100 transition-all group">
                 <span className="w-1.5 h-1.5 bg-indigo-600 rounded-full animate-pulse"></span>
-                <span className="text-[11px] font-black text-indigo-700 tracking-wider">HOTLINE: 0868.640.898</span>
+                <span className="text-[10px] font-black text-indigo-700 tracking-wider">HOTLINE: 0868.640.898</span>
               </a>
-              <p className="text-[11px] text-slate-400 font-bold italic">© 2024 Ban Giám Hiệu THU CÚC School</p>
+              <p className="text-[10px] text-slate-400 font-bold italic tracking-wide">© 2024 Ban Giám Hiệu THU CÚC School</p>
+            </div>
+            <div className="hidden sm:block">
+              <div className="w-1 h-1 bg-slate-200 rounded-full"></div>
             </div>
           </div>
         </div>
