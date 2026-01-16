@@ -14,5 +14,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+// Standard modular export for Firebase Auth in Web SDK v9+
 export const auth = getAuth(app);
 export const db = getFirestore(app);

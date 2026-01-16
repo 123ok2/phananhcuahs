@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+// Fix: Standard modular import for Firebase Auth to resolve export error
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../services/firebase';
 
@@ -23,6 +24,7 @@ const TeacherLogin: React.FC = () => {
     setLoading(true);
     setError('');
     try {
+      // Standard modular call for authentication
       await signInWithEmailAndPassword(auth, email, password);
       if (rememberMe) {
         localStorage.setItem('remembered_teacher_email', email);
@@ -45,7 +47,7 @@ const TeacherLogin: React.FC = () => {
           </svg>
         </div>
         <h2 className="text-3xl font-black text-slate-900 tracking-tight">Cổng Giáo viên</h2>
-        <p className="text-indigo-600 font-bold mt-2">Trường PTDTBT THCS THU CÚC</p>
+        <p className="text-indigo-600 font-bold mt-2 uppercase">TRƯỜNG PTDTBT THCS THU CÚC</p>
       </div>
 
       <form onSubmit={handleLogin} className="space-y-6">
@@ -109,7 +111,7 @@ const TeacherLogin: React.FC = () => {
 
       <div className="mt-10 pt-8 border-t border-slate-100 text-center">
         <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-          Phòng máy chủ: THCS THU CÚC
+          Phòng máy chủ: PTDTBT THCS THU CÚC
         </p>
       </div>
     </div>
