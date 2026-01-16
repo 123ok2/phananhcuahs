@@ -183,17 +183,17 @@ const App: React.FC = () => {
         </div>
       </nav>
 
-      <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16 z-10">
+      <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 z-10">
         {role === UserRole.STUDENT ? (
           <div className="animate-in fade-in slide-in-from-bottom-6 duration-1000">
-            <div className="text-center mb-12 sm:mb-20">
-              <h1 className="text-4xl sm:text-7xl font-black text-slate-950 mb-6 tracking-tight leading-none px-4 font-serif">
+            <div className="text-center mb-8 sm:mb-16">
+              <h1 className="text-4xl sm:text-7xl font-black text-slate-950 mb-4 tracking-tight leading-none px-4 font-serif">
                 <span className="gradient-text italic">PTDTBT THCS THU CÚC</span>
               </h1>
               <p className="text-slate-500 text-sm sm:text-xl font-medium max-w-2xl mx-auto px-4 leading-relaxed">
                 Nơi mỗi học sinh đều có tiếng nói. Hãy cùng chúng tôi xây dựng một môi trường học tập hạnh phúc và không bạo lực.
               </p>
-              <div className="w-24 h-1.5 bg-indigo-200 mx-auto mt-10 rounded-full opacity-30"></div>
+              <div className="w-24 h-1.5 bg-indigo-200 mx-auto mt-8 rounded-full opacity-30"></div>
             </div>
             <StudentReportForm onSubmit={handleNewReport} />
           </div>
@@ -217,20 +217,20 @@ const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="py-10 sm:py-16 border-t border-slate-200 bg-white mt-12 z-10">
+      <footer className="py-6 sm:py-8 border-t border-slate-200 bg-white mt-8 z-10">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
-            <div className="text-center sm:text-left">
-              <p className="text-slate-950 font-black text-lg sm:text-xl tracking-tight mb-2 uppercase font-serif">PTDTBT THCS THU CÚC</p>
-              <p className="text-[11px] text-slate-400 font-bold uppercase tracking-label">Công nghệ bảo vệ học đường SchoolSafe v2.0</p>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-4">
+            <div className="text-center sm:text-left space-y-1">
+              <p className="text-slate-950 font-black text-base sm:text-lg tracking-tight uppercase font-serif">PTDTBT THCS THU CÚC</p>
+              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-label">Hệ thống SchoolSafe v2.0</p>
             </div>
             
-            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8">
-              <a href="tel:0868640898" className="flex items-center gap-3 bg-indigo-50 px-6 py-3 rounded-2xl border border-indigo-100 hover:bg-indigo-100 transition-all group">
-                <span className="w-2 h-2 bg-indigo-600 rounded-full animate-pulse"></span>
-                <span className="text-xs font-black text-indigo-700 tracking-wider">HOTLINE: 0868.640.898</span>
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+              <a href="tel:0868640898" className="flex items-center gap-3 bg-indigo-50 px-5 py-2 rounded-xl border border-indigo-100 hover:bg-indigo-100 transition-all group">
+                <span className="w-1.5 h-1.5 bg-indigo-600 rounded-full animate-pulse"></span>
+                <span className="text-[11px] font-black text-indigo-700 tracking-wider">HOTLINE: 0868.640.898</span>
               </a>
-              <p className="text-xs text-slate-400 font-bold italic">© 2024 Ban Giám Hiệu THU CÚC School</p>
+              <p className="text-[11px] text-slate-400 font-bold italic">© 2024 Ban Giám Hiệu THU CÚC School</p>
             </div>
           </div>
         </div>
