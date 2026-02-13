@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { IncidentReport, IncidentStatus, AIAnalysis } from '../types';
 import { analyzeIncident } from '../services/geminiService';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../services/firebase';
 
 interface Props {
   report: IncidentReport;
@@ -13,6 +15,11 @@ const IncidentDetail: React.FC<Props> = ({ report, onUpdateStatus, onClose }) =>
   const [analysis, setAnalysis] = useState<AIAnalysis | null>(report.aiAnalysis || null);
   const [loading, setLoading] = useState(false);
   const [updating, setUpdating] = useState<IncidentStatus | null>(null);
+  
+  // State for Admin Reply
+  const [replyText, setReplyText] = useState(report.adminReply || '');
+  const [isSavingReply, setIsSavingReply] = useState(false);
+  const [replySaved, setReplySaved] = useState(false);
 
   useEffect(() => {
     if (!report.aiAnalysis && !loading) {
@@ -35,6 +42,21 @@ const IncidentDetail: React.FC<Props> = ({ report, onUpdateStatus, onClose }) =>
     setTimeout(() => setUpdating(null), 800);
   };
 
+  const handleSaveReply = async () => {
+    if (!replyText.trim()) return;
+    setIsSavingReply(true);
+    try {
+      const reportRef = doc(db, "reports", report.id);
+      await updateDoc(reportRef, { adminReply: replyText });
+      setReplySaved(true);
+      setTimeout(() => setReplySaved(false), 2000);
+    } catch (error) {
+      alert("Lỗi khi lưu phản hồi");
+    } finally {
+      setIsSavingReply(false);
+    }
+  };
+
   const urgencyColors: Record<string, string> = {
     'Thấp': 'bg-slate-100 text-slate-600',
     'Trung bình': 'bg-blue-100 text-blue-700',
@@ -52,8 +74,9 @@ const IncidentDetail: React.FC<Props> = ({ report, onUpdateStatus, onClose }) =>
         <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-10">
           <div className="flex items-center gap-3">
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 font-main">
-              Chi tiết phản ánh #{report.id.slice(-4)}
+              Chi tiết phản ánh #{report.trackingCode || report.id.slice(-4)}
             </span>
+            {report.trackingCode && <span className="bg-slate-100 text-slate-500 text-[9px] font-bold px-2 py-0.5 rounded">Tracking: {report.trackingCode}</span>}
           </div>
           <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
             <svg className="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -84,6 +107,31 @@ const IncidentDetail: React.FC<Props> = ({ report, onUpdateStatus, onClose }) =>
                 <div className="p-6 bg-slate-50 rounded-2xl text-slate-800 font-medium leading-relaxed whitespace-pre-wrap border border-slate-100">
                   {report.description}
                 </div>
+              </div>
+
+              {/* Teacher Reply Section */}
+              <div className="space-y-3">
+                 <div className="flex justify-between items-end">
+                    <h3 className="text-xs font-black text-indigo-700 uppercase tracking-widest font-serif">Phản hồi cho học sinh</h3>
+                    {replySaved && <span className="text-[10px] font-bold text-emerald-600 animate-in fade-in">Đã lưu phản hồi!</span>}
+                 </div>
+                 <div className="relative">
+                    <textarea 
+                      className="w-full p-4 bg-indigo-50/50 border border-indigo-100 rounded-2xl text-sm font-medium focus:ring-2 focus:ring-indigo-100 outline-none resize-none"
+                      rows={3}
+                      placeholder="Nhập lời nhắn để học sinh đọc được khi tra cứu (Vd: Thầy đã nhận tin, em hãy yên tâm...)"
+                      value={replyText}
+                      onChange={(e) => setReplyText(e.target.value)}
+                    />
+                    <button 
+                      onClick={handleSaveReply}
+                      disabled={isSavingReply || replyText === report.adminReply}
+                      className="absolute bottom-3 right-3 bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-indigo-700 disabled:opacity-50 transition-colors shadow-sm"
+                    >
+                      {isSavingReply ? '...' : 'Gửi'}
+                    </button>
+                 </div>
+                 <p className="text-[10px] text-slate-400 italic">* Học sinh sẽ thấy nội dung này khi nhập mã tra cứu.</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">

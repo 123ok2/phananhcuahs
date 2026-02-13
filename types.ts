@@ -32,6 +32,8 @@ export interface IncidentReport {
   studentName?: string;    // Tên học sinh (nếu không ẩn danh)
   studentContact?: string; // Liên hệ (nếu không ẩn danh)
   aiAnalysis?: AIAnalysis;
+  trackingCode?: string;   // Mã tra cứu dành cho học sinh
+  adminReply?: string;     // Lời nhắn phản hồi từ giáo viên
 }
 
 export interface AIAnalysis {
