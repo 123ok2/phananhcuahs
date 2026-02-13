@@ -43,8 +43,8 @@ const AdminDashboard: React.FC<Props> = ({ reports, onSelectReport }) => {
     <div className="space-y-6 sm:space-y-10">
       {/* Welcome Header */}
       <div>
-        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-1 font-main">Khu vực quản lý</p>
-        <h2 className="text-3xl sm:text-5xl font-serif font-black text-slate-950 tracking-tight">Hệ thống điều hành</h2>
+        <p className="text-[10px] font-extrabold uppercase tracking-[0.3em] text-indigo-600 mb-1">Khu vực quản lý</p>
+        <h2 className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight">Hệ thống điều hành</h2>
       </div>
 
       {/* Compact Quick Stats - Interactive */}
@@ -60,7 +60,7 @@ const AdminDashboard: React.FC<Props> = ({ reports, onSelectReport }) => {
             ${filterStatus === IncidentStatus.PENDING ? 'text-amber-700' : 'text-slate-400 group-hover:text-amber-600'}`}>
             Đợi xử lý
           </span>
-          <span className={`text-lg sm:text-2xl font-serif font-black leading-none transition-transform group-active:scale-90
+          <span className={`text-lg sm:text-2xl font-black leading-none transition-transform group-active:scale-90
             ${filterStatus === IncidentStatus.PENDING ? 'text-amber-600' : 'text-amber-500'}`}>
             {statusCount.pending}
           </span>
@@ -77,7 +77,7 @@ const AdminDashboard: React.FC<Props> = ({ reports, onSelectReport }) => {
             ${filterStatus === IncidentStatus.PROCESSING ? 'text-indigo-700' : 'text-slate-400 group-hover:text-indigo-600'}`}>
             Đang xử lý
           </span>
-          <span className={`text-lg sm:text-2xl font-serif font-black leading-none transition-transform group-active:scale-90
+          <span className={`text-lg sm:text-2xl font-black leading-none transition-transform group-active:scale-90
             ${filterStatus === IncidentStatus.PROCESSING ? 'text-indigo-700' : 'text-indigo-600'}`}>
             {statusCount.processing}
           </span>
@@ -94,7 +94,7 @@ const AdminDashboard: React.FC<Props> = ({ reports, onSelectReport }) => {
             ${filterStatus === IncidentStatus.RESOLVED ? 'text-emerald-50' : 'text-indigo-300'}`}>
             Hoàn thành
           </span>
-          <span className="text-lg sm:text-2xl font-serif font-black text-white leading-none transition-transform group-active:scale-90">
+          <span className="text-lg sm:text-2xl font-black text-white leading-none transition-transform group-active:scale-90">
             {statusCount.resolved}
           </span>
         </button>
@@ -131,7 +131,7 @@ const AdminDashboard: React.FC<Props> = ({ reports, onSelectReport }) => {
         {/* List */}
         <div className="lg:col-span-8 order-2 lg:order-1 space-y-4">
           <div className="flex items-center justify-between px-1">
-            <h3 className="text-[10px] font-black text-slate-900 uppercase tracking-widest font-serif flex items-center gap-2">
+            <h3 className="text-[10px] font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
               Danh sách phản ánh
               {filterStatus !== 'All' && (
                 <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded-full text-[8px] normal-case font-bold tracking-normal animate-in fade-in slide-in-from-left-2">
@@ -164,7 +164,7 @@ const AdminDashboard: React.FC<Props> = ({ reports, onSelectReport }) => {
                     </span>
                     <span className="text-[8px] font-bold text-slate-400">Lớp {report.classGroup}</span>
                   </div>
-                  <h4 className="text-base font-serif font-black text-slate-950 group-hover:text-indigo-700 transition-colors leading-tight truncate">
+                  <h4 className="text-base font-bold text-slate-950 group-hover:text-indigo-700 transition-colors leading-tight truncate">
                     {report.title}
                   </h4>
                   <p className="text-[11px] text-slate-500 line-clamp-1 font-medium italic">
@@ -192,7 +192,7 @@ const AdminDashboard: React.FC<Props> = ({ reports, onSelectReport }) => {
         {/* Charts */}
         <div className="lg:col-span-4 order-1 lg:order-2">
           <div className="bg-white p-6 rounded-[2rem] border border-slate-100 card-shadow sticky top-24">
-            <h3 className="text-[10px] font-black text-slate-900 uppercase tracking-widest mb-6 font-serif">Thống kê sự vụ</h3>
+            <h3 className="text-[10px] font-black text-slate-900 uppercase tracking-widest mb-6">Thống kê sự vụ</h3>
             <div className="h-[200px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={stats} margin={{top: 0, right: 0, left: -30, bottom: 0}}>

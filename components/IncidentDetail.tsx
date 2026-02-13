@@ -73,7 +73,7 @@ const IncidentDetail: React.FC<Props> = ({ report, onUpdateStatus, onClose }) =>
         {/* Header */}
         <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-10">
           <div className="flex items-center gap-3">
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 font-main">
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
               Chi tiết phản ánh #{report.trackingCode || report.id.slice(-4)}
             </span>
             {report.trackingCode && <span className="bg-slate-100 text-slate-500 text-[9px] font-bold px-2 py-0.5 rounded">Tracking: {report.trackingCode}</span>}
@@ -93,7 +93,7 @@ const IncidentDetail: React.FC<Props> = ({ report, onUpdateStatus, onClose }) =>
                 <div className="inline-flex items-center px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-[10px] font-bold uppercase tracking-wide">
                   {report.category}
                 </div>
-                <h1 className="text-3xl sm:text-4xl font-serif font-black text-slate-950 leading-tight">
+                <h1 className="text-3xl sm:text-4xl font-bold text-slate-950 leading-tight">
                   {report.title}
                 </h1>
                 <div className="flex items-center gap-4 text-xs font-medium text-slate-400">
@@ -103,7 +103,7 @@ const IncidentDetail: React.FC<Props> = ({ report, onUpdateStatus, onClose }) =>
               </header>
 
               <div className="space-y-3">
-                <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest font-serif">Mô tả vụ việc</h3>
+                <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest">Mô tả vụ việc</h3>
                 <div className="p-6 bg-slate-50 rounded-2xl text-slate-800 font-medium leading-relaxed whitespace-pre-wrap border border-slate-100">
                   {report.description}
                 </div>
@@ -112,7 +112,7 @@ const IncidentDetail: React.FC<Props> = ({ report, onUpdateStatus, onClose }) =>
               {/* Teacher Reply Section */}
               <div className="space-y-3">
                  <div className="flex justify-between items-end">
-                    <h3 className="text-xs font-black text-indigo-700 uppercase tracking-widest font-serif">Phản hồi cho học sinh</h3>
+                    <h3 className="text-xs font-black text-indigo-700 uppercase tracking-widest">Phản hồi cho học sinh</h3>
                     {replySaved && <span className="text-[10px] font-bold text-emerald-600 animate-in fade-in">Đã lưu phản hồi!</span>}
                  </div>
                  <div className="relative">
@@ -147,18 +147,21 @@ const IncidentDetail: React.FC<Props> = ({ report, onUpdateStatus, onClose }) =>
 
               {/* Status Actions */}
               <div className="pt-6 border-t border-slate-100 space-y-4">
-                <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest font-serif">Trạng thái xử lý</h3>
+                <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest">Trạng thái xử lý</h3>
                 <div className="flex flex-col sm:flex-row gap-3">
                   {Object.values(IncidentStatus).map((status) => {
                     const isCurrent = report.status === status;
                     const isUpdating = updating === status;
                     
+                    // Logic active: Nút đang update HOẶC (là nút hiện tại VÀ không có nút nào khác đang update)
+                    const isActive = isUpdating || (isCurrent && !updating);
+                    
                     let btnClass = "flex-1 py-4 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 ";
                     
-                    if (isCurrent) {
-                      if (status === IncidentStatus.PENDING) btnClass += "bg-amber-500 text-white shadow-lg shadow-amber-100";
-                      else if (status === IncidentStatus.PROCESSING) btnClass += "status-processing text-white shadow-lg shadow-indigo-100";
-                      else if (status === IncidentStatus.RESOLVED) btnClass += "bg-emerald-500 text-white shadow-lg shadow-emerald-100";
+                    if (isActive) {
+                      if (status === IncidentStatus.PENDING) btnClass += "bg-amber-500 text-white shadow-lg shadow-amber-100 scale-[1.02]";
+                      else if (status === IncidentStatus.PROCESSING) btnClass += "status-processing text-white shadow-lg shadow-indigo-100 scale-[1.02]";
+                      else if (status === IncidentStatus.RESOLVED) btnClass += "bg-emerald-500 text-white shadow-lg shadow-emerald-100 scale-[1.02]";
                     } else {
                       btnClass += "bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-slate-600";
                     }
@@ -184,7 +187,7 @@ const IncidentDetail: React.FC<Props> = ({ report, onUpdateStatus, onClose }) =>
               <div className="bg-indigo-950 rounded-3xl p-8 text-white h-full relative overflow-hidden flex flex-col space-y-8">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-indigo-500/20 rounded-xl flex items-center justify-center">✨</div>
-                  <h4 className="font-serif italic text-xl">Phân tích thông minh</h4>
+                  <h4 className="italic text-xl font-bold">Phân tích thông minh</h4>
                 </div>
 
                 {loading ? (
