@@ -14,8 +14,10 @@ const AdminDashboard: React.FC<Props> = ({ reports, onSelectReport }) => {
 
   const filteredReports = useMemo(() => {
     return reports.filter(report => {
-      const matchSearch = report.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          report.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const term = searchTerm.toLowerCase();
+      const matchSearch = report.title.toLowerCase().includes(term) || 
+                          report.description.toLowerCase().includes(term) ||
+                          report.classGroup.toLowerCase().includes(term);
       const matchStatus = filterStatus === 'All' || report.status === filterStatus;
       return matchSearch && matchStatus;
     });
@@ -105,7 +107,7 @@ const AdminDashboard: React.FC<Props> = ({ reports, onSelectReport }) => {
         <div className="relative flex-grow">
           <input 
             type="text" 
-            placeholder="Tìm kiếm sự vụ..."
+            placeholder="Tìm kiếm sự vụ, lớp..."
             className="w-full pl-10 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-50 outline-none text-sm font-bold text-slate-900 transition-all card-shadow"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
